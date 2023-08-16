@@ -49,6 +49,4 @@ gitHooks {
     createHooks()
 }
 
-rootProject.name = "template-kt-mpp-project"
-
-include(":example")
+include(":csv-core")

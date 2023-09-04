@@ -9,7 +9,17 @@ import io.github.gciatto.csv.headerOf
 import io.github.gciatto.csv.recordOf
 
 abstract class AbstractParser(override val source: Any, override val configuration: Configuration) : Parser {
+
+    protected open fun beforeParsing() {
+        // does nothing by default
+    }
+
+    protected open fun afterParsing() {
+        // does nothing by default
+    }
+
     override fun parse(): Iterable<Row> = sequence {
+        beforeParsing()
         var header: Header? = null
         var i = 0
         for (line in sourceAsLines()) {
@@ -38,6 +48,7 @@ abstract class AbstractParser(override val source: Any, override val configurati
             }
             i++
         }
+        afterParsing()
     }.asIterable()
 
     protected abstract fun sourceAsLines(): Sequence<String>

@@ -1,4 +1,9 @@
 kotlin {
+    js {
+        useCommonJs()
+        binaries.library()
+        nodejs()
+    }
     sourceSets {
         commonMain {
             dependencies {

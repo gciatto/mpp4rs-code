@@ -52,3 +52,10 @@ fun String.parseAsCSV(
     delimiter: Char = DEFAULT_DELIMITER,
     comment: Char = DEFAULT_COMMENT
 ): Table = StringParser(this, Configuration(separator, delimiter, comment)).parse().let(::tableOf)
+
+expect fun parseCsvFile(
+    path: String,
+    separator: Char = DEFAULT_SEPARATOR,
+    delimiter: Char = DEFAULT_DELIMITER,
+    comment: Char = DEFAULT_COMMENT
+): Table

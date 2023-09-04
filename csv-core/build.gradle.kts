@@ -1,7 +1,7 @@
 kotlin {
     js {
         useCommonJs()
-        binaries.library()
+//        binaries.executable()
         nodejs()
     }
     sourceSets {

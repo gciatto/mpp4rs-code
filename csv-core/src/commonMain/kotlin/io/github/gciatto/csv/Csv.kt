@@ -1,4 +1,5 @@
 @file:Suppress("NON_EXPORTABLE_TYPE")
+@file:JvmName("Csv")
 
 package io.github.gciatto.csv
 
@@ -9,6 +10,7 @@ import io.github.gciatto.csv.impl.DefaultTable
 import io.github.gciatto.csv.impl.StringParser
 import kotlin.js.JsExport
 import kotlin.js.JsName
+import kotlin.jvm.JvmName
 
 const val DEFAULT_SEPARATOR = ','
 const val DEFAULT_DELIMITER = '"'

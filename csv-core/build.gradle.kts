@@ -29,3 +29,15 @@ kotlin {
         }
     }
 }
+
+shadowJar()
+
+tasks.create<Copy>("exportJarForPython") {
+    group = "python"
+    val shadowJar by tasks.getting(Jar::class)
+    dependsOn(shadowJar)
+    from(shadowJar.archiveFile) {
+        rename(".*?\\.jar", "csv.jar")
+    }
+    into(rootProject.projectDir.resolve("csv-python/jcsv/jvm"))
+}

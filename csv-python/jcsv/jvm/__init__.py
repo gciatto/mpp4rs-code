@@ -32,9 +32,4 @@ __jars = [str(j.resolve()) for j in CLASSPATH.glob('*.jar')]
 jpype.startJVM(classpath=__jars, jvmpath=str(__jvmlib()))
 
 
-__jlang = jpype.JPackage("java.lang")
-jSystem = __jlang.System
-
-
-print("start Java version", jSystem.getProperty("java.version"), "from", jSystem.getProperty("java.home"))
-print("\tclasspath:", __jars)
+from .__jvmutils import *

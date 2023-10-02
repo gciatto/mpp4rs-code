@@ -1,6 +1,9 @@
+@file:JvmName("CsvJvm")
+
 package io.github.gciatto.csv
 
 import java.io.File
+import kotlin.jvm.JvmName
 
 actual fun parseCsvFile(
     path: String,

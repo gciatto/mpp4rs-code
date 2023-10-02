@@ -5,12 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: modulo",
+            "name": "JCSV Main",
             "type": "python",
             "request": "launch",
             "module": "jcsv",
             "justMyCode": true,
-            "cwd": "${workspaceFolder}/csv-python"  
+            "cwd": "${workspaceFolder}/csv-python" ,
+            "python": "${command:python.interpreterPath}" 
+        },
+        {
+            "name": "JCSV Test",
+            "type": "python",
+            "request": "launch",
+            "module": "unittest",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}/csv-python" ,
+            "python": "${command:python.interpreterPath}" 
         }
     ]
 }

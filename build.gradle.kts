@@ -21,10 +21,10 @@ log("version: $version", LogLevel.LIFECYCLE)
 multiProjectHelper {
     defaultProjectType = ProjectType.KOTLIN // default project type for all projects which are not explicitly marked
 
-    ktProjects = subprojects.toSet()
+    ktProjects = setOf(project(":csv-core"))
     jvmProjects = emptySet()
     jsProjects = emptySet()
-    otherProjects = emptySet()
+    otherProjects = setOf(project(":csv-python"))
 
     val baseProjectTemplate = buildSet {
         add(Plugins.documentation)

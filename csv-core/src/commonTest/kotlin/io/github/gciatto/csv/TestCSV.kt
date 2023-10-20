@@ -3,8 +3,19 @@ package io.github.gciatto.csv
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class TestCSV {
+    @Test
+    fun headerBasics() {
+        val header = Tables.iris(Tables.irisShortHeader).header
+        assertTrue(header.contains("sepal_length"))
+        assertFalse(header.contains("missing"))
+        assertEquals(0, header.indexOf("sepal_length"))
+        assertEquals(-1, header.indexOf("missing"))
+    }
+
     @Test
     fun recordBasics() {
         val record = Tables.iris(Tables.irisShortHeader).records[0]

@@ -8,14 +8,16 @@ tasks.create<Copy>("createCoreJar") {
     into(projectDir.resolve("jcsv/jvm"))
 }
 
-fun findExecutablePath(name: String, vararg otherNames: String): File? =
-    System.getenv("PATH")
+fun findExecutablePath(name: String, vararg otherNames: String): File? {
+    val names = listOf(name, *otherNames).flatMap { listOf(it, it + ".exe") }
+    return System.getenv("PATH")
         .split(File.pathSeparatorChar)
         .asSequence()
         .map { File(it) }
-        .flatMap { path -> sequenceOf(name, *otherNames).map { path.resolve(it) } }
+        .flatMap { path -> names.asSequence().map { path.resolve(it) } }
         .filter { it.exists() }
         .firstOrNull()
+}
 
 val python = findExecutablePath("python3", "python")?.absolutePath
     ?: error("Cannot find Python executable")

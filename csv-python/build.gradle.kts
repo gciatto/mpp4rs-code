@@ -37,7 +37,12 @@ pyTask("pythonTest", "-m", "unittest") {
 
 tasks.create("test") {
     group = "Verification"
-    dependsOn("unittest")
+    dependsOn("pythonTest")
+}
+
+tasks.create("check") {
+    group = "Verification"
+    dependsOn("test")
 }
 
 exec {

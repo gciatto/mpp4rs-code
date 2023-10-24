@@ -31,3 +31,7 @@ class TestParsing(unittest.TestCase):
     def test_parse_iris_with_misplaced_header(self):
         table = jcsv.parse_csv_string(test.STRING_IRIS_WITH_MISPLACED_HEADER)
         self.assertEqual(table, test.TABLE_IRIS_WITH_MISPLACED_HEADER)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,20 +1,23 @@
+import typing
 
 import jpype
 import jcsv.jvm as jvm
 import jcsv.pyt as pyt
 
 
-__csv = jpype.JPackage("io.github.gciatto.csv")
+_csv = jpype.JPackage("io.github.gciatto.csv")
+_java = jpype.JPackage("java.lang")
 
 
-Table = __csv.Table
-Row = __csv.Row
-Record = __csv.Record
-Header = __csv.Header
-Formatter = __csv.Formatter
-Parser = __csv.Parser
-Csv = __csv.Csv
-CsvJvm = __csv.CsvJvm
+Table = _csv.Table
+Row = _csv.Row
+Record = _csv.Record
+Header = _csv.Header
+Formatter = _csv.Formatter
+Parser = _csv.Parser
+Configuration = _csv.Configuration
+Csv = _csv.Csv
+CsvJvm = _csv.CsvJvm
 
 
 def header(*args):
@@ -51,3 +54,135 @@ def parse_csv_file(path, separator = Csv.DEFAULT_SEPARATOR, delimiter = Csv.DEFA
 
 def format_as_csv(rows, separator = Csv.DEFAULT_SEPARATOR, delimiter = Csv.DEFAULT_DELIMITER, comment = Csv.DEFAULT_COMMENT):
     return Csv.formatAsCSV(jvm.Iterable@rows, separator, delimiter, comment)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Configuration")
+class _Configuration:
+    @property
+    def separator(self) -> str:
+        return self.getSeparator()
+
+    @property
+    def delimiter(self) -> str:
+        return self.getDelimiter()
+
+    @property
+    def comment(self) -> str:
+        return self.getComment()
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Row")
+class _Row:
+    def __len__(self):
+        return self.getSize()
+
+    def __getitem__(self, item):
+        if isinstance(item, int) and item < 0:
+            item = len(self) + item
+        try:
+            return self.get(item)
+        except _java.IndexOutOfBoundsException as e:
+            raise IndexError(f"index {item} out of range") from e
+
+    @property
+    def size(self):
+        return len(self)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Row")
+class _Row:
+    def __len__(self) -> int:
+        return self.getSize()
+
+    def __getitem__(self, item: int | str) -> str:
+        if isinstance(item, int) and item < 0:
+            item = len(self) + item
+        try:
+            return self.get(item)
+        except _java.IndexOutOfBoundsException as e:
+            raise IndexError(f"index {item} out of range") from e
+
+    @property
+    def size(self) -> int:
+        return len(self)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Record")
+class _Record:
+    @property
+    def header(self) -> Header:
+        return self.getHeader()
+
+    @property
+    def values(self) -> typing.List[str]:
+        return [str(v) for v in self.getValues()]
+
+    def __contains__(self, item: str) -> bool:
+        return self.contains(item)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Header")
+class _Header:
+    @property
+    def columns(self) -> typing.List[str]:
+        return [str(c) for c in self.getColumns()]
+
+    def __contains__(self, item: str) -> bool:
+        return self.contains(item)
+
+    def index_of(self, column: str) -> int:
+        return self.indexOf(column)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Table")
+class _Table:
+    @property
+    def header(self) -> Header:
+        return self.getHeader()
+
+    def __len__(self) -> int:
+        return self.getSize()
+
+    def __getitem__(self, item: int) -> Row:
+        if isinstance(item, int) and item < 0:
+            item = len(self) + item
+        try:
+            return self.get(item)
+        except _java.IndexOutOfBoundsException as e:
+            raise IndexError(f"index {item} out of range") from e
+
+    @property
+    def records(self) -> typing.List[Record]:
+        return self.getRecords()
+
+    @property
+    def size(self) -> int:
+        return len(self)
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Formatter")
+class _Formatter:
+    @property
+    def source(self) -> typing.Iterable[Row]:
+        return self.getSource()
+
+    @property
+    def configuration(self) -> Configuration:
+        return self.getConfiguration()
+
+    # def format(self) -> typing.Iterable[str]:
+    #     return self.format()
+
+
+@jpype.JImplementationFor("io.github.gciatto.csv.Parser")
+class _Parser:
+    @property
+    def source(self) -> object:
+        return self.getSource()
+
+    @property
+    def configuration(self) -> Configuration:
+        return self.getConfiguration()
+
+    # def parse(self) -> typing.Iterable[Row]:
+    #     return self.parse()

@@ -50,3 +50,4 @@ gitHooks {
 }
 
 include(":csv-core")
+include(":csv-python")

@@ -2,7 +2,7 @@ import typing
 
 import jpype
 import jcsv.jvm as jvm
-import jcsv.pyt as pyt
+import jcsv.python as python
 
 
 _csv = jpype.JPackage("io.github.gciatto.csv")
@@ -23,11 +23,11 @@ CsvJvm = _csv.CsvJvm
 def header(*args):
     if len(args) == 1 and isinstance(args[0], int):
         return Csv.anonymousHeader(args[0])
-    return pyt.iterable_or_varargs(args, lambda xs: Csv.headerOf(jvm.Iterable@map(str, xs)))
+    return python.iterable_or_varargs(args, lambda xs: Csv.headerOf(jvm.Iterable@map(str, xs)))
 
 
 def record(header, *args):
-    return pyt.iterable_or_varargs(args, lambda xs: Csv.recordOf(header, jvm.Iterable@map(str, xs)))
+    return python.iterable_or_varargs(args, lambda xs: Csv.recordOf(header, jvm.Iterable@map(str, xs)))
 
 
 def __ensure_header(h):
@@ -41,7 +41,7 @@ def __ensure_record(r, h):
 def table(header, *args):
     header = __ensure_header(header)
     args = [__ensure_record(row, header) for row in args]
-    return pyt.iterable_or_varargs(args, lambda xs: Csv.tableOf(header, jvm.Iterable@xs))
+    return python.iterable_or_varargs(args, lambda xs: Csv.tableOf(header, jvm.Iterable@xs))
 
 
 def parse_csv_string(string, separator = Csv.DEFAULT_SEPARATOR, delimiter = Csv.DEFAULT_DELIMITER, comment = Csv.DEFAULT_COMMENT):

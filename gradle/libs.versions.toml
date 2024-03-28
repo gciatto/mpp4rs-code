@@ -29,7 +29,7 @@ shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "shadowJar" 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 npmPublish = { module = "dev.petuska:npm-publish-gradle-plugin", version.ref = "npmPublish" }
-clikt = "com.github.ajalt.clikt:clikt:4.2.2"
+clikt = "com.github.ajalt.clikt:clikt:4.3.0"
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }

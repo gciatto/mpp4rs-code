@@ -32,7 +32,7 @@ jobs:
       will-release: ${{ steps.compute-next-version.outputs.will-release }}
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0
       - name: Compute next release version
@@ -127,7 +127,7 @@ jobs:
       (needs.test-extensively.result == 'success' || needs.test-extensively.result == 'skipped')
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - uses: DanySK/build-check-deploy-gradle-action@2.4.20
         with:
           maven-central-password: ${{ secrets.MAVEN_PASSWORD }}
@@ -159,7 +159,7 @@ jobs:
       needs.close-staging-repos.result == 'success'
     steps:
       - name: Checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           token: ${{ secrets.DEPLOYMENT_TOKEN }}
       - name: Find the version of Node from package.json

@@ -21,7 +21,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: DanySK/action-checkout@0.2.19
+        uses: DanySK/action-checkout@0.2.20
       - uses: DanySK/build-check-deploy-gradle-action@3.5.7
         with:
           java-distribution: ${{ matrix.jdk-dist }}
@@ -50,7 +50,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: DanySK/action-checkout@0.2.19
+        uses: DanySK/action-checkout@0.2.20
       - uses: DanySK/build-check-deploy-gradle-action@3.5.7
         with:
           build-command: |
@@ -78,7 +78,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Checkout
-        uses: DanySK/action-checkout@0.2.19
+        uses: DanySK/action-checkout@0.2.20
       - uses: DanySK/build-check-deploy-gradle-action@3.5.7
         with:
           check-command: |
